@@ -8,6 +8,8 @@
 - GDP duplicate rows: 0
 - First populated population year observed: 1960
 - Held Games before the first populated population year: 13
+- First populated GDP year observed: 1960
+- Held Games before the first populated GDP year: 13
 
 No Games years before 1960 have World Bank population observations because the bulk series begins at 1960.
 
