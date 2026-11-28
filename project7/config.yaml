@@ -1,0 +1,44 @@
+# Project 7 configuration
+paths:
+  raw: data/raw
+  interim: data/interim
+  rejected: data/rejected
+  final: data/final
+  reports: reports
+  figures: reports/figures
+  logs: logs
+
+twist:
+  games_range:
+    start: null
+    end: null
+  notes: "Personal twist not yet provided."
+
+scraper:
+  user_agent: "HNU Olympic Games project/1.0 (course use; contact: <<FILL: contact email>>)"
+  delay_seconds: 1
+  cache_dir: data/raw/wikipedia
+  respect_robots: true
+  games_url_template: "https://en.wikipedia.org/wiki/{year}_Summer_Olympics_medal_table"
+  games_page_template: "https://en.wikipedia.org/wiki/{year}_Summer_Olympics"
+
+api:
+  base_url: "https://restcountries.com/v3.1"
+  fields: [name, cca2, cca3, cioc, region, subregion]
+  timeout: 30
+  retries: 5
+  backoff_factor: 1
+
+worldbank:
+  population_indicator: "SP.POP.TOTL"
+  gdp_indicator: "NY.GDP.MKTP.CD"
+  download_url_template: "https://api.worldbank.org/v2/country/all/indicator/{indicator}?downloadformat=csv"
+  skiprows: 4
+
+thresholds:
+  fuzzy_threshold: 90
+  min_medals: 1
+
+figure_games_year: 2024
+sample:
+  default_n: null
