@@ -25,24 +25,41 @@ def build_games_index(download_status: bool = True) -> pd.DataFrame:
         held_year = 2021 if year == 2020 else year
         table_url = str(get("scraper", "games_url_template")).format(year=year)
         page_url = str(get("scraper", "games_page_template")).format(year=year)
-        url = table_url
-        note = ""
-        if status == "held" and download_status:
-            headers = {"User-Agent": str(get("scraper", "user_agent"))}
-            response = requests.get(table_url, headers=headers, timeout=30)
-            LOGGER.info("Checked %s: HTTP %d", table_url, response.status_code)
-            if response.status_code != 200:
-                url = page_url
-                note = "table inside main page"
-            time.sleep(float(get("scraper", "delay_seconds")))
-        elif status == "cancelled":
+        if status == "held":
+            url = table_url
+            note = ""
+        else:
             url = page_url
-            note = "Games cancelled"
-        elif status == "intercalated":
-            url = page_url
-            note = "Intercalated Games"
+            note = "Games cancelled" if status == "cancelled" else "Intercalated Games"
         if year == 2020:
             note = "Tokyo 2020 Games held in 2021"
+        if download_status:
+            headers = {"User-Agent": str(get("scraper", "user_agent"))}
+            response = requests.get(url, headers=headers, timeout=30)
+            primary_status = response.status_code
+            LOGGER.info("Checked %s: HTTP %d", url, primary_status)
+            time.sleep(float(get("scraper", "delay_seconds")))
+            if primary_status != 200:
+                fallback_url = page_url if url == table_url else table_url
+                fallback = requests.get(fallback_url, headers=headers, timeout=30)
+                fallback_status = fallback.status_code
+                LOGGER.info("Checked fallback %s: HTTP %d", fallback_url, fallback_status)
+                time.sleep(float(get("scraper", "delay_seconds")))
+                if fallback_status != 200:
+                    raise RuntimeError(
+                        f"Both Games URLs failed for {year}: "
+                        f"HTTP {primary_status} ({url}), HTTP {fallback_status} ({fallback_url})"
+                    )
+                url = fallback_url
+                note = f"{note}; " if note else ""
+                note += (
+                    f"HTTP {primary_status} at primary URL; HTTP {fallback_status} at fallback URL"
+                )
+                if url == page_url:
+                    note += "; table inside main page"
+            else:
+                note = f"{note}; " if note else ""
+                note += f"HTTP {primary_status}"
         games_name = f"{held_year if held_year != year else year} Summer Olympics"
         start = get("twist", "games_range").get("start")
         end = get("twist", "games_range").get("end")

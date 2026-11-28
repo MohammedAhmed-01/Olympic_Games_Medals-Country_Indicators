@@ -8,8 +8,16 @@
 - GDP duplicate rows: 0
 - First populated population year observed: 1960
 - Held Games before the first populated population year: 13
+- First populated GDP year observed: 1960
+- Held Games before the first populated GDP year: 13
 
 No Games years before 1960 have World Bank population observations because the bulk series begins at 1960.
+
+### Last three year columns (retained)
+
+- 2023: population 265/266 populated (completely empty: no); GDP 252/266 populated (completely empty: no)
+- 2024: population 265/266 populated (completely empty: no); GDP 248/266 populated (completely empty: no)
+- 2025: population 265/266 populated (completely empty: no); GDP 234/266 populated (completely empty: no)
 
 ### Population profile
 
