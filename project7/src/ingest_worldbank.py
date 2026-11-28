@@ -52,6 +52,15 @@ def _process_csv(csv_path: Path, output_name: str, skiprows: int,
     year_columns = [column for column in frame.columns if str(column).isdigit()]
     for column in year_columns:
         frame[column] = pd.to_numeric(frame[column], errors="coerce")
+    for column in year_columns[-3:]:
+        populated = int(frame[column].notna().sum())
+        LOGGER.info(
+            "Year column %s: %d/%d populated; completely empty=%s (retained)",
+            column,
+            populated,
+            len(frame),
+            populated == 0,
+        )
     if sample_n is not None:
         frame = frame.iloc[:sample_n].copy()
     output_path = PROJECT_ROOT / "data" / "interim" / output_name

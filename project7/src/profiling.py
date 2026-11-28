@@ -68,6 +68,20 @@ def write_worldbank_quality_report(population: pd.DataFrame, gdp: pd.DataFrame) 
     first_gdp = _first_populated_year(gdp)
     pre_population_games = int(held_games.lt(first_populated).sum()) if first_populated else 0
     pre_gdp_games = int(held_games.lt(first_gdp).sum()) if first_gdp else 0
+    latest_year_columns = [
+        column for column in population.columns
+        if str(column).isdigit()
+    ][-3:]
+    latest_year_stats = []
+    for column in latest_year_columns:
+        population_count = int(pd.to_numeric(population[column], errors="coerce").notna().sum())
+        gdp_count = int(pd.to_numeric(gdp[column], errors="coerce").notna().sum())
+        latest_year_stats.append(
+            f"- {column}: population {population_count}/{len(population)} populated "
+            f"(completely empty: {'yes' if population_count == 0 else 'no'}); "
+            f"GDP {gdp_count}/{len(gdp)} populated "
+            f"(completely empty: {'yes' if gdp_count == 0 else 'no'})"
+        )
     lines = [
         "# Data Quality Report",
         "",
@@ -83,6 +97,10 @@ def write_worldbank_quality_report(population: pd.DataFrame, gdp: pd.DataFrame) 
         f"- Held Games before the first populated GDP year: {pre_gdp_games}",
         "",
         "No Games years before 1960 have World Bank population observations because the bulk series begins at 1960.",
+        "",
+        "### Last three year columns (retained)",
+        "",
+        *latest_year_stats,
         "",
         "### Population profile",
         "",

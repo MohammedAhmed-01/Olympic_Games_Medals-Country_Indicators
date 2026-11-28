@@ -13,6 +13,12 @@
 
 No Games years before 1960 have World Bank population observations because the bulk series begins at 1960.
 
+### Last three year columns (retained)
+
+- 2023: population 265/266 populated (completely empty: no); GDP 252/266 populated (completely empty: no)
+- 2024: population 265/266 populated (completely empty: no); GDP 248/266 populated (completely empty: no)
+- 2025: population 265/266 populated (completely empty: no); GDP 234/266 populated (completely empty: no)
+
 ### Population profile
 
 - Dtypes: {'Country Name': 'object', 'Country Code': 'object', 'Indicator Name': 'object', 'Indicator Code': 'object', '1960': 'float64', '1961': 'float64', '1962': 'float64', '1963': 'float64', '1964': 'float64', '1965': 'float64', '1966': 'float64', '1967': 'float64', '1968': 'float64', '1969': 'float64', '1970': 'float64', '1971': 'float64', '1972': 'float64', '1973': 'float64', '1974': 'float64', '1975': 'float64', '1976': 'float64', '1977': 'float64', '1978': 'float64', '1979': 'float64', '1980': 'float64', '1981': 'float64', '1982': 'float64', '1983': 'float64', '1984': 'float64', '1985': 'float64', '1986': 'float64', '1987': 'float64', '1988': 'float64', '1989': 'float64', '1990': 'float64', '1991': 'float64', '1992': 'float64', '1993': 'float64', '1994': 'float64', '1995': 'float64', '1996': 'float64', '1997': 'float64', '1998': 'float64', '1999': 'float64', '2000': 'float64', '2001': 'float64', '2002': 'float64', '2003': 'float64', '2004': 'float64', '2005': 'float64', '2006': 'float64', '2007': 'float64', '2008': 'float64', '2009': 'float64', '2010': 'float64', '2011': 'float64', '2012': 'float64', '2013': 'float64', '2014': 'float64', '2015': 'float64', '2016': 'float64', '2017': 'float64', '2018': 'float64', '2019': 'float64', '2020': 'float64', '2021': 'float64', '2022': 'float64', '2023': 'float64', '2024': 'float64', '2025': 'float64'}
