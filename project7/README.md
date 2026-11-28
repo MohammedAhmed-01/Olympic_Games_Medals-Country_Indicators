@@ -1,31 +1,32 @@
 # Project 7: Olympic Games Medals & Country Indicators
 
-## 1. Project Overview
+## Question
 
-## 2. Data Sources
+## Sources
 
-- World Bank population: `SP.POP.TOTL`
-- World Bank GDP: `NY.GDP.MKTP.CD`
 - Wikipedia Summer Olympics medal tables
+- World Bank population (`SP.POP.TOTL`) and GDP (`NY.GDP.MKTP.CD`)
 - REST Countries API
 
-## 3. Setup and Reproduction
+## How to run
 
-## 4. Pipeline Usage
+Install the pinned dependencies, then run from the `project7` directory:
 
 ```powershell
+python -m pip install -r requirements.txt
 python -m src.pipeline --help
 python -m src.pipeline --offline --stage ingest
 python -m src.pipeline --download --sample 10 --stage ingest
-python -m src.pipeline --offline
 ```
 
-`--sample N` is a downloader convention: `N` keeps only the first N country rows in interim files; `None` means the full raw download is processed.
+`--sample N` means each downloader processes the first N country rows in its interim output; None means the full dataset. Raw downloads remain complete.
 
-## 5. Data Dictionary
+## Row counts
 
-## 6. Validation
+## Key cleaning decisions
 
-## 7. Results and Figures
+## Figures
 
-## 8. Team Roles and Contributions
+## Limitations
+
+## Team roles
