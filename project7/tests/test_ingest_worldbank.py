@@ -2,6 +2,7 @@
 
 import pandas as pd
 import src.ingest_worldbank as ingest
+import src.pipeline as pipeline
 
 from src.ingest_worldbank import _process_csv
 
@@ -20,9 +21,11 @@ def test_skiprows_and_numeric_year_columns(tmp_path) -> None:
     assert pd.api.types.is_numeric_dtype(frame["2024"])
 
 
-def test_offline_mode_makes_zero_network_calls(monkeypatch) -> None:
-    def forbidden_download(*args, **kwargs):
-        raise AssertionError("network called in offline mode")
+def test_offline_stage_makes_zero_network_calls(monkeypatch) -> None:
+    from unittest.mock import Mock
 
-    monkeypatch.setattr(ingest, "_download", forbidden_download)
-    ingest.ingest_worldbank(offline=True, download=False, sample_n=None)
+    network_request = Mock()
+    monkeypatch.setattr(ingest.requests, "get", network_request)
+    monkeypatch.setattr("sys.argv", ["src.pipeline", "--offline", "--stage", "ingest"])
+    assert pipeline.main() == 0
+    network_request.assert_not_called()
